@@ -1,0 +1,654 @@
+{
+  "tool": "superpowers-skill-router",
+  "version": "1.0.0",
+  "model": {
+    "kind": "deterministic-lexical-proxy",
+    "idf": "log((N+1)/(df+0.5))+1",
+    "phrase_bonus": 0.75,
+    "strength_multiplier": 1.15,
+    "min_margin": 0.15
+  },
+  "skills": [
+    {
+      "name": "brainstorming",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, modifying behavior, or planning anything new, in software or out of it (a talk, a business, a renovation).",
+      "tokens": 19,
+      "weight": 1.15
+    },
+    {
+      "name": "diagnosing-superpowers",
+      "description": "Use when a superpowers session went wrong and your human partner wants to know why — repeated work, ignored plans, stumbles, poor results, a skill that didn't fire, \"it took too long\", \"why is it so expensive\", \"what is it doing\" — or wants to build a bug report for the superpowers maintainers, for the current session or a past one identified by id or path, on any harness.",
+      "tokens": 38,
+      "weight": 1.0
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+      "tokens": 10,
+      "weight": 1.0
+    },
+    {
+      "name": "executing-plans",
+      "description": "Use when executing an implementation plan in the current session as the implementer yourself — your human partner chose inline execution, or no subagent tool is available",
+      "tokens": 17,
+      "weight": 1.0
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work",
+      "tokens": 11,
+      "weight": 1.0
+    },
+    {
+      "name": "receiving-code-review",
+      "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+      "tokens": 22,
+      "weight": 1.0
+    },
+    {
+      "name": "requesting-code-review",
+      "description": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+      "tokens": 12,
+      "weight": 1.0
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": "Use when executing implementation plans with independent tasks in the current session",
+      "tokens": 9,
+      "weight": 1.0
+    },
+    {
+      "name": "systematic-debugging",
+      "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "tokens": 10,
+      "weight": 1.0
+    },
+    {
+      "name": "test-driven-development",
+      "description": "Use when implementing any feature or bugfix, before writing implementation code",
+      "tokens": 8,
+      "weight": 1.0
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+      "tokens": 22,
+      "weight": 1.0
+    },
+    {
+      "name": "using-superpowers",
+      "description": "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions",
+      "tokens": 14,
+      "weight": 1.0
+    },
+    {
+      "name": "verification-before-completion",
+      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+      "tokens": 23,
+      "weight": 1.15
+    },
+    {
+      "name": "writing-plans",
+      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "tokens": 8,
+      "weight": 1.0
+    },
+    {
+      "name": "writing-skills",
+      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "tokens": 12,
+      "weight": 1.0
+    }
+  ],
+  "queries": [
+    {
+      "text": "You MUST use this before any creative work",
+      "source": "derived:description",
+      "expected": "brainstorming",
+      "ranking": [
+        {
+          "skill": "brainstorming",
+          "score": 6.6121
+        },
+        {
+          "skill": "verification-before-completion",
+          "score": 1.8774
+        },
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 1.6325
+        }
+      ],
+      "top1": "brainstorming",
+      "margin": 0.7161,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when a session went wrong and your human partner wants to know why",
+      "source": "derived:description",
+      "expected": "diagnosing-superpowers",
+      "ranking": [
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 29.1444
+        },
+        {
+          "skill": "executing-plans",
+          "score": 8.9824
+        },
+        {
+          "skill": "subagent-driven-development",
+          "score": 2.5198
+        }
+      ],
+      "top1": "diagnosing-superpowers",
+      "margin": 0.6918,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential",
+      "source": "derived:description",
+      "expected": "dispatching-parallel-agents",
+      "ranking": [
+        {
+          "skill": "dispatching-parallel-agents",
+          "score": 24.7258
+        },
+        {
+          "skill": "subagent-driven-development",
+          "score": 5.8748
+        },
+        {
+          "skill": "requesting-code-review",
+          "score": 3.901
+        }
+      ],
+      "top1": "dispatching-parallel-agents",
+      "margin": 0.7624,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when an implementation plan in the current session as the implementer yourself",
+      "source": "derived:description",
+      "expected": "executing-plans",
+      "ranking": [
+        {
+          "skill": "executing-plans",
+          "score": 19.4419
+        },
+        {
+          "skill": "subagent-driven-development",
+          "score": 10.4576
+        },
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 9.0668
+        }
+      ],
+      "top1": "executing-plans",
+      "margin": 0.4621,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when implementation is complete, all tests pass, and you need to decide how to integrate",
+      "source": "derived:description",
+      "expected": "finishing-a-development-branch",
+      "ranking": [
+        {
+          "skill": "finishing-a-development-branch",
+          "score": 28.6774
+        },
+        {
+          "skill": "verification-before-completion",
+          "score": 6.5695
+        },
+        {
+          "skill": "using-git-worktrees",
+          "score": 4.7571
+        }
+      ],
+      "top1": "finishing-a-development-branch",
+      "margin": 0.7709,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable",
+      "source": "derived:description",
+      "expected": "receiving-code-review",
+      "ranking": [
+        {
+          "skill": "receiving-code-review",
+          "score": 35.0359
+        },
+        {
+          "skill": "requesting-code-review",
+          "score": 2.5198
+        },
+        {
+          "skill": "test-driven-development",
+          "score": 2.5198
+        }
+      ],
+      "top1": "receiving-code-review",
+      "margin": 0.9281,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+      "source": "derived:description",
+      "expected": "requesting-code-review",
+      "ranking": [
+        {
+          "skill": "requesting-code-review",
+          "score": 34.6205
+        },
+        {
+          "skill": "writing-plans",
+          "score": 5.1248
+        },
+        {
+          "skill": "test-driven-development",
+          "score": 4.7883
+        }
+      ],
+      "top1": "requesting-code-review",
+      "margin": 0.852,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when executing implementation plans with independent tasks in the current session",
+      "source": "derived:description",
+      "expected": "subagent-driven-development",
+      "ranking": [
+        {
+          "skill": "subagent-driven-development",
+          "score": 21.1023
+        },
+        {
+          "skill": "executing-plans",
+          "score": 13.7275
+        },
+        {
+          "skill": "using-git-worktrees",
+          "score": 10.4576
+        }
+      ],
+      "top1": "subagent-driven-development",
+      "margin": 0.3495,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "source": "derived:description",
+      "expected": "systematic-debugging",
+      "ranking": [
+        {
+          "skill": "systematic-debugging",
+          "score": 30.6545
+        },
+        {
+          "skill": "brainstorming",
+          "score": 3.2847
+        },
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 2.8563
+        }
+      ],
+      "top1": "systematic-debugging",
+      "margin": 0.8928,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when implementing any feature or bugfix, before writing implementation code",
+      "source": "derived:description",
+      "expected": "test-driven-development",
+      "ranking": [
+        {
+          "skill": "test-driven-development",
+          "score": 19.6932
+        },
+        {
+          "skill": "receiving-code-review",
+          "score": 6.9404
+        },
+        {
+          "skill": "requesting-code-review",
+          "score": 4.7883
+        }
+      ],
+      "top1": "test-driven-development",
+      "margin": 0.6476,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans",
+      "source": "derived:description",
+      "expected": "using-git-worktrees",
+      "ranking": [
+        {
+          "skill": "using-git-worktrees",
+          "score": 33.7391
+        },
+        {
+          "skill": "executing-plans",
+          "score": 10.4576
+        },
+        {
+          "skill": "subagent-driven-development",
+          "score": 10.4576
+        }
+      ],
+      "top1": "using-git-worktrees",
+      "margin": 0.69,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when starting any conversation",
+      "source": "derived:description",
+      "expected": "using-superpowers",
+      "ranking": [
+        {
+          "skill": "using-superpowers",
+          "score": 6.9734
+        },
+        {
+          "skill": "using-git-worktrees",
+          "score": 2.8563
+        }
+      ],
+      "top1": "using-superpowers",
+      "margin": 0.5904,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when about to claim work is complete, fixed, or passing, committing or creating PRs",
+      "source": "derived:description",
+      "expected": "verification-before-completion",
+      "ranking": [
+        {
+          "skill": "verification-before-completion",
+          "score": 39.5417
+        },
+        {
+          "skill": "finishing-a-development-branch",
+          "score": 7.3451
+        },
+        {
+          "skill": "brainstorming",
+          "score": 4.7752
+        }
+      ],
+      "top1": "verification-before-completion",
+      "margin": 0.8142,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "source": "derived:description",
+      "expected": "writing-plans",
+      "ranking": [
+        {
+          "skill": "writing-plans",
+          "score": 21.496
+        },
+        {
+          "skill": "requesting-code-review",
+          "score": 5.1248
+        },
+        {
+          "skill": "receiving-code-review",
+          "score": 2.5198
+        }
+      ],
+      "top1": "writing-plans",
+      "margin": 0.7616,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Use when creating new , editing existing , or verifying work before deployment",
+      "source": "derived:description",
+      "expected": "writing-skills",
+      "ranking": [
+        {
+          "skill": "writing-skills",
+          "score": 21.7055
+        },
+        {
+          "skill": "brainstorming",
+          "score": 8.0599
+        },
+        {
+          "skill": "requesting-code-review",
+          "score": 5.2388
+        }
+      ],
+      "top1": "writing-skills",
+      "margin": 0.6287,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "The plan is done. docs/superpowers/plans/auth-system.md has everything. Do subagent-driven development on this - start with Task 1, dispatch a subagent, then we'll review.",
+      "source": "upstream:tests/explicit-skill-requests/action-oriented.txt",
+      "expected": "subagent-driven-development",
+      "ranking": [
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 7.8863
+        },
+        {
+          "skill": "executing-plans",
+          "score": 6.2028
+        },
+        {
+          "skill": "using-git-worktrees",
+          "score": 5.6919
+        }
+      ],
+      "top1": "diagnosing-superpowers",
+      "margin": 0.2135,
+      "collision": false,
+      "hit": false
+    },
+    {
+      "text": "Great, the plan is complete. I've saved it to docs/superpowers/plans/auth-system.md. Here's a summary of what we designed: - Task 1: Add User Model with email/password fields - Task 2: Create auth routes for login/register - Task 3: Add JWT middleware for protected routes - Task 4: Write tests for all auth functionality Two execution options: 1. Subagent-Driven (this session) - dispatch a fresh subagent per task 2. Parallel Session (separate) - open new Claude Code session Which approach do you want? --- subagent-driven-development, please",
+      "source": "upstream:tests/explicit-skill-requests/after-planning-flow.txt",
+      "expected": "",
+      "ranking": [
+        {
+          "skill": "subagent-driven-development",
+          "score": 21.8742
+        },
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 18.6066
+        },
+        {
+          "skill": "executing-plans",
+          "score": 13.3496
+        }
+      ],
+      "top1": "subagent-driven-development",
+      "margin": 0.1494,
+      "collision": true,
+      "hit": false
+    },
+    {
+      "text": "[Previous assistant message]: Plan complete and saved to docs/superpowers/plans/auth-system.md. Two execution options: 1. Subagent-Driven (this session) - I dispatch a fresh subagent per task, review between tasks, fast iteration within this conversation 2. Parallel Session (separate) - Open a new Claude Code session with the execute-plan skill, batch execution with review checkpoints Which approach do you want to use for implementation? [Your response]: subagent-driven-development, please",
+      "source": "upstream:tests/explicit-skill-requests/claude-suggested-it.txt",
+      "expected": "",
+      "ranking": [
+        {
+          "skill": "subagent-driven-development",
+          "score": 22.1434
+        },
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 21.1264
+        },
+        {
+          "skill": "executing-plans",
+          "score": 16.0922
+        }
+      ],
+      "top1": "subagent-driven-development",
+      "margin": 0.0459,
+      "collision": true,
+      "hit": false
+    },
+    {
+      "text": "I have my implementation plan ready at docs/superpowers/plans/auth-system.md. I want to use subagent-driven-development to execute it. That means: - Dispatch a fresh subagent for each task in the plan - Review the output between tasks - Keep iteration fast within this conversation Let's start - please read the plan and begin dispatching subagents for each task.",
+      "source": "upstream:tests/explicit-skill-requests/i-know-what-sdd-means.txt",
+      "expected": "",
+      "ranking": [
+        {
+          "skill": "subagent-driven-development",
+          "score": 20.3501
+        },
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 14.0713
+        },
+        {
+          "skill": "executing-plans",
+          "score": 10.8296
+        }
+      ],
+      "top1": "subagent-driven-development",
+      "margin": 0.3085,
+      "collision": false,
+      "hit": false
+    },
+    {
+      "text": "I have a plan at docs/superpowers/plans/auth-system.md that's ready to implement. subagent-driven-development, please",
+      "source": "upstream:tests/explicit-skill-requests/mid-conversation-execute-plan.txt",
+      "expected": "subagent-driven-development",
+      "ranking": [
+        {
+          "skill": "subagent-driven-development",
+          "score": 10.6465
+        },
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 7.8863
+        },
+        {
+          "skill": "executing-plans",
+          "score": 2.8356
+        }
+      ],
+      "top1": "subagent-driven-development",
+      "margin": 0.2593,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "please use the brainstorming skill to help me think through this feature",
+      "source": "upstream:tests/explicit-skill-requests/please-use-brainstorming.txt",
+      "expected": "brainstorming",
+      "ranking": [
+        {
+          "skill": "brainstorming",
+          "score": 11.3631
+        },
+        {
+          "skill": "writing-skills",
+          "score": 5.0397
+        },
+        {
+          "skill": "using-superpowers",
+          "score": 3.7797
+        }
+      ],
+      "top1": "brainstorming",
+      "margin": 0.5565,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "Plan is at docs/superpowers/plans/auth-system.md. subagent-driven-development, please. Don't waste time - just read the plan and start dispatching subagents immediately.",
+      "source": "upstream:tests/explicit-skill-requests/skip-formalities.txt",
+      "expected": "",
+      "ranking": [
+        {
+          "skill": "subagent-driven-development",
+          "score": 11.4122
+        },
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 8.4535
+        },
+        {
+          "skill": "executing-plans",
+          "score": 6.7699
+        }
+      ],
+      "top1": "subagent-driven-development",
+      "margin": 0.2593,
+      "collision": false,
+      "hit": false
+    },
+    {
+      "text": "subagent-driven-development, please",
+      "source": "upstream:tests/explicit-skill-requests/subagent-driven-development-please.txt",
+      "expected": "subagent-driven-development",
+      "ranking": [
+        {
+          "skill": "subagent-driven-development",
+          "score": 6.8184
+        }
+      ],
+      "top1": "subagent-driven-development",
+      "margin": 1.0,
+      "collision": false,
+      "hit": true
+    },
+    {
+      "text": "use systematic-debugging to figure out what's wrong",
+      "source": "upstream:tests/explicit-skill-requests/use-systematic-debugging.txt",
+      "expected": "systematic-debugging",
+      "ranking": [
+        {
+          "skill": "systematic-debugging",
+          "score": 6.8184
+        },
+        {
+          "skill": "diagnosing-superpowers",
+          "score": 3.3671
+        }
+      ],
+      "top1": "systematic-debugging",
+      "margin": 0.5062,
+      "collision": false,
+      "hit": true
+    }
+  ],
+  "summary": {
+    "skills": 15,
+    "queries": 24,
+    "reachable": 15,
+    "unreachable": 0,
+    "collisions": 2,
+    "mean_margin": 0.5774,
+    "expected_hits": 19,
+    "expected_total": 20
+  },
+  "unreachable": [],
+  "suggestions": {},
+  "digest": "sha256:286d5430bf966e09437fdbf68ecb239699234f1a4e95d0f4d7b159381bb4c45b"
+}
